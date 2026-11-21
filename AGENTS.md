@@ -61,7 +61,8 @@ maintainer's machines.
 - **Everything is tested before a merge**: the full local checks (`/check`), tests for every
   behaviour the change adds or alters, CI green, an independent review with its findings fixed,
   and a security read of the diff with nothing open, all on the head being merged. Merge the
-  default branch in once before those final checks, or for a conflict. Merge only through the PR
+  default branch in once before those final checks, or for a conflict. What could not be tested
+  is said in the PR and waits for a maintainer. Merge only through the PR
   (`gh pr merge <n> --merge --delete-branch --match-head-commit <sha>`). Never `--auto` or
   `--admin`, never push to `main`, never tag or release: hand over the command. Rulesets protect
   `main` and release tags (`v*` and `<channel>/v*`).
