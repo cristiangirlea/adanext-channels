@@ -1,0 +1,6 @@
+{
+  "name": "matrix",
+  "label": "Matrix",
+  "secret_env": "ADA_MATRIX_TOKEN",
+  "hosts": ["matrix.org"]
+}
