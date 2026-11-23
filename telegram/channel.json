@@ -1,0 +1,6 @@
+{
+  "name": "telegram",
+  "label": "Telegram",
+  "secret_env": "ADA_TELEGRAM_TOKEN",
+  "hosts": ["api.telegram.org"]
+}
