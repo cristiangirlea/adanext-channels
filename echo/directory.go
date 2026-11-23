@@ -112,7 +112,7 @@ func (d *directory) read(offset int64) ([]sdk.Inbound, error) {
 	return batch, nil
 }
 
-func (d *directory) Commit(_ context.Context, id string) error {
+func (d *directory) Commit(ctx context.Context, id string) error {
 	offset, ok := d.offsets[id]
 	if !ok {
 		return fmt.Errorf("no offset for %q", id)
@@ -126,7 +126,7 @@ func (d *directory) Commit(_ context.Context, id string) error {
 	if err = errors.Join(err, tmp.Sync(), tmp.Close()); err != nil {
 		return fmt.Errorf("save position: %w", err)
 	}
-	if err = os.Rename(tmp.Name(), filepath.Join(d.dir, "position")); err != nil {
+	if err = replaceFile(ctx, tmp.Name(), filepath.Join(d.dir, "position")); err != nil {
 		return fmt.Errorf("replace position: %w", err)
 	}
 	delete(d.offsets, id)
@@ -148,4 +148,20 @@ func (d *directory) Deliver(ctx context.Context, msg p.Deliver) (string, error) 
 		return "", fmt.Errorf("append delivery: %w", err)
 	}
 	return msg.ID, nil
+}
+
+// Windows refuses a rename while another process holds the target open, so retry briefly.
+func replaceFile(ctx context.Context, from, to string) error {
+	for attempt := 1; attempt < 20; attempt++ {
+		err := os.Rename(from, to)
+		if err == nil {
+			return nil
+		}
+		select {
+		case <-ctx.Done():
+			return errors.Join(err, ctx.Err())
+		case <-time.After(time.Duration(attempt) * 5 * time.Millisecond):
+		}
+	}
+	return os.Rename(from, to)
 }

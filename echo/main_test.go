@@ -105,17 +105,15 @@ func TestEchoReplay(t *testing.T) {
 func waitForPosition(t *testing.T, dir string, want int64) {
 	t.Helper()
 	d := directory{dir: dir}
-	deadline := time.Now().Add(5 * time.Second)
+	deadline := time.Now().Add(10 * time.Second)
 	for {
+		// The channel replaces the file while we read it; on Windows that can fail for a moment.
 		pos, err := d.position()
-		if err != nil {
-			t.Fatal(err)
-		}
-		if pos == want {
+		if err == nil && pos == want {
 			return
 		}
-		if pos > want || time.Now().After(deadline) {
-			t.Fatalf("position %d, want %d", pos, want)
+		if err == nil && pos > want || time.Now().After(deadline) {
+			t.Fatalf("position %d, want %d (last error: %v)", pos, want, err)
 		}
 		time.Sleep(5 * time.Millisecond)
 	}
