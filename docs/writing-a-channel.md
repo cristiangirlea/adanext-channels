@@ -99,8 +99,13 @@ Install `channel.json` beside the executable. The echo channel ships this manife
 
 `sdk.LoadManifest(path)` validates the file. Names use 1 to 64 lowercase ASCII letters,
 digits or hyphens. The token environment variable starts with an uppercase letter and
-contains only uppercase letters, digits and underscores. Declare at least one exact
-hostname. Unknown and duplicate fields are refused. Ada enforces the secret and host limits.
+contains only uppercase letters, digits and underscores. Declare at least one host.
+Use an exact hostname or a single leading wildcard label. For example, `*.discord.gg`
+matches `gateway-us-east1-b.discord.gg`. The wildcard covers exactly one label and the
+suffix must be a valid hostname. Unknown and duplicate fields are refused. Ada gives each
+channel only the secret variable its manifest names. Ada records and displays the declared
+hosts. [Ada's isolation work](https://github.com/cristiangirlea/adanext-ada/issues/8) will
+enforce those host limits.
 
 ## Test with the fake core
 

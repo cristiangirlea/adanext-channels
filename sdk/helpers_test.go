@@ -115,7 +115,7 @@ func TestLogger(t *testing.T) {
 }
 
 func TestManifest(t *testing.T) {
-	base := Manifest{Name: "0-echo", Label: "Echo", SecretEnv: "ADA_ECHO_TOKEN", Hosts: []string{"localhost", "api.chat.example"}}
+	base := Manifest{Name: "0-echo", Label: "Echo", SecretEnv: "ADA_ECHO_TOKEN", Hosts: []string{"localhost", "api.chat.example", "*.discord.gg"}}
 	if err := base.Validate(); err != nil {
 		t.Fatal(err)
 	}
@@ -129,7 +129,7 @@ func TestManifest(t *testing.T) {
 			t.Fatalf("accepted %+v", m)
 		}
 	}
-	for _, host := range []string{"", "*", "-abc", "a-.b", "https://chat", "a/b", "abc:80", "abc..d", strings.Repeat("a", 64)} {
+	for _, host := range []string{"", "*", "*.", "*..example", "*.*.example", "a.*.example", "*bad.example", "*.-bad.example", "*.example:443", "-abc", "a-.b", "https://chat", "a/b", "abc:80", "abc..d", strings.Repeat("a", 64)} {
 		m := base
 		m.Hosts = []string{host}
 		if m.Validate() == nil {

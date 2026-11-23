@@ -1,0 +1,6 @@
+{
+  "name": "discord",
+  "label": "Discord",
+  "secret_env": "ADA_DISCORD_TOKEN",
+  "hosts": ["discord.com", "gateway.discord.gg", "*.discord.gg"]
+}
