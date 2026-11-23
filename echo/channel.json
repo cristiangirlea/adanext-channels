@@ -1,0 +1,6 @@
+{
+  "name": "echo",
+  "label": "Echo",
+  "secret_env": "ADA_ECHO_TOKEN",
+  "hosts": ["localhost"]
+}

@@ -4,14 +4,16 @@ One Go module with one plugin binary per chat app and a shared `sdk/`. Each chan
 channel kind of hrn's plugin protocol v2 (cristiangirlea/harness#982) to Ada's core
 (cristiangirlea/adanext-ada), which starts it, pairs senders and decides everything.
 
-Issue #1 is the epic and lists the slices in order; take one slice per branch. `docs/` arrives
-with the SDK slice; until then the issues are the design.
+Issue #1 is the epic and lists the slices in order. Take one slice per branch.
+See [Writing a channel](docs/writing-a-channel.md) for the service interface and test setup.
 
 ## Layout
 
 | Path | Holds |
 |---|---|
-| `sdk/` | Shared code: protocol, splitting, formatting, retries, the fake core for tests. |
+| `sdk/` | Shared channel runtime, splitting, formatting, retries, logging and manifest validation. |
+| `sdk/fakecore/` | Pipe-based host and message store for channel tests. |
+| `echo/` | Directory-backed reference channel, manifest and process tests. |
 | `<channel>/` | One channel each (`telegram/`, `discord/`, ...): its `main`, manifest and tests. |
 | `.claude/hooks/` | gofmt, push and hidden-character checks; their tests run in CI. |
 | `.github/workflows/ci.yml` | CI on GitHub's hosted Ubuntu, Windows and macOS runners (public repository). |
@@ -45,7 +47,7 @@ maintainer's machines.
 - **Free services without payment details.** A channel that needs a paid plan or a payment card is
   not built without a maintainer's decision (issue #7).
 - **Dependencies per channel.** A channel may use its service's maintained client library;
-  `sdk/` stays on the standard library. Each new dependency is named and argued in its PR.
+  `sdk/` uses only the standard library and harness's contracts module. Each new dependency is named and argued in its PR.
 - **Tests never call a real service.** Fake service APIs and the fake core only; no tokens in
   tests or fixtures. A manual check with a test bot is recorded in the PR, never automated.
 - Every PR updates `docs/` for a behaviour it adds or changes, and ticks its slice in the epic.
