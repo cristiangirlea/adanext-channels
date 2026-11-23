@@ -42,7 +42,7 @@ func (m Manifest) Validate() error {
 		if len(host) > 253 {
 			return errors.New("manifest: hostname exceeds 253 bytes")
 		}
-		for label := range strings.SplitSeq(host, ".") {
+		for label := range strings.SplitSeq(strings.TrimPrefix(host, "*."), ".") {
 			if !hostLabel.MatchString(label) {
 				return fmt.Errorf("manifest: invalid hostname %q", host)
 			}
