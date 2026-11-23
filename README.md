@@ -1,6 +1,6 @@
 # adanext-channels
 
-**Status: planned. Nothing here is usable yet.** The work is the epic, issue #1, and its slices.
+The shared SDK and the directory-backed echo channel are available. Issue #1 tracks the chat service integrations.
 
 The chat apps [Ada](https://github.com/cristiangirlea/adanext-ada) talks through, each as a
 separate plugin program: installed on its own, holding only its own token, reaching only its own
@@ -9,8 +9,12 @@ service, and deciding nothing. Who may talk to Ada, and what she may do, is deci
 Planned, in order: Telegram, Discord and Slack; then Matrix, Signal and email. WhatsApp and Teams
 wait for a decision on their costs and sign-ups (issue #7).
 
-One repository, one binary per channel (`ada-channel-telegram`, ...), and a shared `sdk/`: the
-channel protocol, message splitting, formatting, retries, and a fake core for tests. Contributors
-and agents: read [AGENTS.md](AGENTS.md) first.
+| Path | Purpose |
+|---|---|
+| `sdk/` | Shared runtime and helpers. The SDK uses only the standard library and harness's contracts module. |
+| `sdk/fakecore/` | Test host with a store that survives channel restarts. |
+| `echo/` | Reference binary, `channel.json` and end-to-end tests. |
+
+Read [AGENTS.md](AGENTS.md) and [Writing a channel](docs/writing-a-channel.md) to add a service.
 
 MIT licensed.
