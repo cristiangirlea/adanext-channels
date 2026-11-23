@@ -1,6 +1,8 @@
 /dist/
 /echo/ada-channel-echo
 /echo/ada-channel-echo.exe
+/telegram/ada-channel-telegram
+/telegram/ada-channel-telegram.exe
 
 # Personal AI notes and settings
 CLAUDE.local.md
