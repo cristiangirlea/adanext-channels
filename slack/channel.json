@@ -1,0 +1,1 @@
+{"name":"slack","label":"Slack","secret_env":"ADA_SLACK_TOKENS","hosts":["slack.com","*.slack.com"]}
