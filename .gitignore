@@ -5,6 +5,8 @@
 /telegram/ada-channel-telegram.exe
 /discord/ada-channel-discord
 /discord/ada-channel-discord.exe
+/slack/ada-channel-slack
+/slack/ada-channel-slack.exe
 
 # Personal AI notes and settings
 CLAUDE.local.md
