@@ -1,13 +1,13 @@
 # adanext-channels
 
-The Telegram, Discord, Slack and Matrix channels, shared SDK and directory-backed echo channel are available. Issue #1 tracks the chat service integrations.
-
 The chat apps [Ada](https://github.com/cristiangirlea/adanext-ada) talks through, each as a
 separate plugin program: installed on its own, holding only its own token, reaching only its own
 service, and deciding nothing. Who may talk to Ada, and what she may do, is decided in Ada's core.
 
-Next are Signal and email. WhatsApp and Teams
-wait for a decision on their costs and sign-ups (issue #7).
+**Available:** Telegram, Discord, Slack and Matrix, the shared SDK, and an echo channel for
+tests. **Next:** Signal and email. WhatsApp and Teams wait for a decision on their costs and
+sign-ups ([issue #7](https://github.com/cristiangirlea/adanext-channels/issues/7)).
+[Issue #1](https://github.com/cristiangirlea/adanext-channels/issues/1) tracks all of them.
 
 | Path | Purpose |
 |---|---|
